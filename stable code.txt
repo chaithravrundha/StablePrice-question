@@ -1,0 +1,65 @@
+
+// Function to count distinct pairs
+// in array whose sum equal to target
+    function stockPairs(stocksProfit,n,target)
+    {
+    // Stores count of distinct pairs
+    // whose sum equal to target
+	var cntPairs = 0;
+    // Sort the array
+	stocksProfit = quicksort(stocksProfit);
+    	console.log(stocksProfit+"")
+	var i = 0;
+	var j = n - 1;
+    // Calculate count of distinct
+    // pairs whose sum equal to target
+	while (i < j) {
+	// If sum of current pair
+        // is equal to target
+		if (stocksProfit[i] + stocksProfit[j] == target) {
+			cntPairs += 1;
+			console.log(stocksProfit[i],stocksProfit[j])
+			while (i < j && stocksProfit[i] == stocksProfit[i + 1]) {
+			// Update i
+				i++;
+			}
+			while ((i < j) && (stocksProfit[j] == stocksProfit[j - 1])) {
+			// Update j
+				j--;
+			}
+			i++;
+			j--;
+		}
+		
+        // if sum of current pair
+        // less than target
+		else if (stocksProfit[i] + stocksProfit[j] < target) {
+			i++;
+		}
+		else {
+			j--;
+		}
+	}
+	return cntPairs;
+}
+function quicksort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
+  var pivot = array[0];
+  var left = []; 
+  var right = [];
+
+  for (var i = 1; i < array.length; i++) {
+    array[i] < pivot ? left.push(array[i]) : right.push(array[i]);
+  }
+  return quicksort(left).concat(pivot, quicksort(right));
+};
+
+// Driver Code
+var stocksProfit = [ 5,7,9,13,100000000,11,4900000000,6,6,3,3];
+var n = stocksProfit.length;
+var target = 5000000000;
+document.write(stockPairs(stocksProfit, n, target));
+
+
